@@ -1,4 +1,3 @@
-// src/app/products/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,7 @@ interface Product {
   isSale?: boolean;
 }
 
-// Simulated API function to fetch product details (replace with actual API call)
+// Simulated API function to fetch product details
 async function getProductById(id: string): Promise<Product | undefined> {
   const product: Product | undefined = {
     id,
@@ -31,15 +30,15 @@ async function getProductById(id: string): Promise<Product | undefined> {
 export default async function ProductPage({
   params,
 }: {
-  params: { id: string };
+  params: Record<string, string>;
 }) {
-  const { id } = params;
+  console.log("params:", params); // Debug log
 
-  // Fetch product data
+  const { id } = params;
   const product = await getProductById(id);
 
   if (!product) {
-    notFound(); // Render 404 page
+    return notFound();
   }
 
   return (
