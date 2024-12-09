@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 // Define the structure of the CartItem
 interface CartItem {
@@ -32,8 +32,15 @@ export const useCart = () => {
 
 // CartProvider component to provide cart data and functions
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Initialize cartItems from localStorage or empty array
-  const [cartItems, setCartItems] = useState<CartItem[]>(JSON.parse(localStorage.getItem('cart') || '[]'));
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  // Load cart items from localStorage on the client side
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+    }
+  }, []);
 
   // Add item to cart
   const addItemToCart = (newItem: CartItem) => {
