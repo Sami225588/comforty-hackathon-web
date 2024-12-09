@@ -27,18 +27,14 @@ async function getProductById(id: string): Promise<Product | undefined> {
   return product;
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Record<string, string>;
-}) {
+export default async function ProductPage({ params }: any) {
   console.log("params:", params); // Debug log
 
-  const { id } = params;
+  const { id } = params; // Access `id` from params
   const product = await getProductById(id);
 
   if (!product) {
-    return notFound();
+    return notFound(); // Render 404 page if the product is not found
   }
 
   return (
