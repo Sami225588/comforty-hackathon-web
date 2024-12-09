@@ -2,19 +2,9 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  isNew?: boolean;
-  isSale?: boolean;
-}
-
 // Simulated API function to fetch product details
-async function getProductById(id: string): Promise<Product | undefined> {
-  const product: Product | undefined = {
+async function getProductById(id: string) {
+  const product = {
     id,
     title: "Library Stool Chair",
     price: 20,
@@ -27,14 +17,12 @@ async function getProductById(id: string): Promise<Product | undefined> {
   return product;
 }
 
-export default async function ProductPage({ params }: any) {
-  console.log("params:", params); // Debug log
-
-  const { id } = params; // Access `id` from params
+export default async function ProductPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const product = await getProductById(id);
 
   if (!product) {
-    return notFound(); // Render 404 page if the product is not found
+    return notFound();
   }
 
   return (
