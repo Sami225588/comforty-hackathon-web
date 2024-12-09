@@ -13,35 +13,30 @@ interface Product {
   isSale?: boolean;
 }
 
-// Fetch the product server-side by ID using getServerSideProps
-export async function getServerSideProps({ params }: { params: { id: string } }) {
-  const { id } = params;
-
-  // Simulate an API call to fetch product details (replace with actual API call)
+// Simulated API function to fetch product details (replace with actual API call)
+async function getProductById(id: string): Promise<Product | undefined> {
+  // Simulate API data
   const product: Product | undefined = {
     id,
     title: "Library Stool Chair",
     price: 20,
-    image: "/placeholder.svg",
+    image: "/asset/2.png",
     isNew: id === "1",
     isSale: id === "2",
     originalPrice: id === "2" ? 40 : undefined,
   };
-
-  if (!product) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      product,
-    },
-  };
+  
+  return product;
 }
 
-export default function ProductPage({ product }: { product: Product }) {
+export default async function ProductPage({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const product = await getProductById(id);
+
+  if (!product) {
+    notFound(); // Renders a 404 page
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8">
