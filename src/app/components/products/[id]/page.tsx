@@ -15,7 +15,6 @@ interface Product {
 
 // Simulated API function to fetch product details (replace with actual API call)
 async function getProductById(id: string): Promise<Product | undefined> {
-  // Simulate API data
   const product: Product | undefined = {
     id,
     title: "Library Stool Chair",
@@ -25,16 +24,22 @@ async function getProductById(id: string): Promise<Product | undefined> {
     isSale: id === "2",
     originalPrice: id === "2" ? 40 : undefined,
   };
-  
+
   return product;
 }
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+export default async function ProductPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
+
+  // Fetch product data
   const product = await getProductById(id);
 
   if (!product) {
-    notFound(); // Renders a 404 page
+    notFound(); // Render 404 page
   }
 
   return (
