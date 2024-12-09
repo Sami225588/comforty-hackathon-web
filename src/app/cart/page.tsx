@@ -76,7 +76,7 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between">
                 <span>Estimated Delivery & Handling</span>
-                <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                <span>{shipping === 0 ? 'Free' : `$${shipping}`}</span>
               </div>
               <div className="border-t pt-4">
                 <div className="flex justify-between font-bold">
