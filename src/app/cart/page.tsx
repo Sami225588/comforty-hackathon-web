@@ -1,19 +1,10 @@
 'use client'
 
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useCart } from '@/app/contexts/CartContext'; // Import the custom hook
 
-interface CartItem {
-  id: string;
-  title: string;
-  price: number;
-  image: string;
-  color: string;
-  size: string;
-  quantity: number;
-}
 
 export default function CartPage() {
   const { cartItems, removeItemFromCart } = useCart(); // Get cartItems and remove function from context
